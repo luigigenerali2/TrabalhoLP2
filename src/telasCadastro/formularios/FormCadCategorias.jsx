@@ -17,7 +17,9 @@ export default function FormCadCategoria(props) {
       if (!props.modoEdicao) {
         props.setListaCategorias([...props.listaCategorias, categoria]);
       } else {
-        props.setListaCategorias([...props.listaCategorias.filter((itemCategoria) => itemCategoria.idCategoria !== categoria.idCategoria), categoria]);
+        // No modo de edição, mantenha o idCategoria original
+        const categoriaAtualizada = { ...categoria, idCategoria: props.categoriaParaEdicao.idCategoria };
+        props.setListaCategorias([...props.listaCategorias.filter((itemCategoria) => itemCategoria.idCategoria !== categoria.idCategoria), categoriaAtualizada]);
         props.setModoEdicao(false);
         props.setCategoriaParaEdicao({ idCategoria: '', nome: '' });
       }
@@ -45,6 +47,7 @@ export default function FormCadCategoria(props) {
                   value={categoria.idCategoria}
                   onChange={manipularMudancas}
                   required
+                  disabled={props.modoEdicao} // Desabilita o campo no modo de edição
                 />
               </FloatingLabel>
               <Form.Control.Feedback type="invalid">Informe o ID da Categoria!</Form.Control.Feedback>

@@ -17,7 +17,8 @@ export default function FormCadProduto(props) {
       if (!props.modoEdicao) {
         props.setListaProdutos([...props.listaProdutos, produto]);
       } else {
-        props.setListaProdutos([...props.listaProdutos.filter((itemProduto) => itemProduto.idProduto !== produto.idProduto), produto]);
+        const produtoAtualizado = { ...produto, idProduto: props.produtoParaEdicao.idProduto };
+        props.setListaProdutos([...props.listaProdutos.filter((itemProduto) => itemProduto.idProduto !== produto.idProduto), produtoAtualizado]);
         props.setModoEdicao(false);
         props.setProdutoParaEdicao({ idProduto: '', nome: '', descricao: '', quantidade: 0, valor: 0, fornecedor: '', categoria: '' });
       }
@@ -45,6 +46,7 @@ export default function FormCadProduto(props) {
                   value={produto.idProduto}
                   onChange={manipularMudancas}
                   required
+                  disabled={props.modoEdicao} // Desabilita o campo no modo de edição
                 />
               </FloatingLabel>
               <Form.Control.Feedback type="invalid">Informe o ID do Produto!</Form.Control.Feedback>

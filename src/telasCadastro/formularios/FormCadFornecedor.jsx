@@ -17,7 +17,9 @@ export default function FormCadFornecedor(props) {
       if (!props.modoEdicao) {
         props.setListaFornecedores([...props.listaFornecedores, fornecedor]);
       } else {
-        props.setListaFornecedores([...props.listaFornecedores.filter((itemFornecedor) => itemFornecedor.cnpj !== fornecedor.cnpj), fornecedor]);
+        // No modo de edição, mantenha o CNPJ original
+        const fornecedorAtualizado = { ...fornecedor, cnpj: props.fornecedorParaEdicao.cnpj };
+        props.setListaFornecedores([...props.listaFornecedores.filter((itemFornecedor) => itemFornecedor.cnpj !== fornecedor.cnpj), fornecedorAtualizado]);
         props.setModoEdicao(false);
         props.setFornecedorParaEdicao({ cnpj: '', nome: '', email: '', telefone: '', categoria: '' });
       }
@@ -36,18 +38,19 @@ export default function FormCadFornecedor(props) {
         <Row>
           <Col>
             <Form.Group>
-              <FloatingLabel label="CNPJ:" className="mb-3">
+              <FloatingLabel label="CNPJ do Fornecedor:" className="mb-3">
                 <Form.Control
                   type="text"
-                  placeholder="00.000.000/0000-00"
+                  placeholder="CNPJ do Fornecedor"
                   id="cnpj"
                   name="cnpj"
                   value={fornecedor.cnpj}
                   onChange={manipularMudancas}
                   required
+                  disabled={props.modoEdicao} // Desabilita o campo no modo de edição
                 />
               </FloatingLabel>
-              <Form.Control.Feedback type="invalid">Informe o CNPJ!</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">Informe o CNPJ do Fornecedor!</Form.Control.Feedback>
             </Form.Group>
           </Col>
         </Row>

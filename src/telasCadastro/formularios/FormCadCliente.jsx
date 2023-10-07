@@ -31,8 +31,8 @@ export default function FormCadCliente(props) {
             }
             else{
                 //alterar os dados do cliente (filtra e adiciona)
-
-                props.setListaClientes([...props.listaClientes.filter((itemCliente)=>itemCliente.cpf !== cliente.cpf),cliente]);
+                const clienteAtualizado = { ...cliente, cpf: props.clienteParaEdicao.cpf };
+                props.setListaClientes([...props.listaClientes.filter((itemCliente)=>itemCliente.cpf !== cliente.cpf),clienteAtualizado]);
                 props.setModoEdicao(false);
                 props.setClienteParaEdicao(clienteVazio);                
             }
@@ -65,6 +65,7 @@ export default function FormCadCliente(props) {
                                     name="cpf" 
                                     value={cliente.cpf}
                                     onChange={manipularMudancas}
+                                    disabled={props.modoEdicao}
                                     required />
                             </FloatingLabel>
                             <Form.Control.Feedback type="invalid">Informe o cpf!</Form.Control.Feedback>

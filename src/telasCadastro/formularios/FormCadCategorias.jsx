@@ -16,10 +16,16 @@ export default function FormCadCategoria(props) {
     if (form.checkValidity()) {
       if (!props.modoEdicao) {
         props.setListaCategorias([...props.listaCategorias, categoria]);
+        props.setMensagem('Categoria incluído com sucesso');
+        props.setTipoMensagem('success');
+        props.setMostrarMensagem(true);
       } else {
         // No modo de edição, mantenha o idCategoria original
         const categoriaAtualizada = { ...categoria, idCategoria: props.categoriaParaEdicao.idCategoria };
         props.setListaCategorias([...props.listaCategorias.filter((itemCategoria) => itemCategoria.idCategoria !== categoria.idCategoria), categoriaAtualizada]);
+        props.setMensagem('Categoria alterada com sucesso');
+        props.setTipoMensagem('success');
+        props.setMostrarMensagem(true);
         props.setModoEdicao(false);
         props.setCategoriaParaEdicao({ idCategoria: '', nome: '' });
       }

@@ -16,10 +16,16 @@ export default function FormCadFornecedor(props) {
     if (form.checkValidity()) {
       if (!props.modoEdicao) {
         props.setListaFornecedores([...props.listaFornecedores, fornecedor]);
+        props.setMensagem('Fornecedor incluído com sucesso');
+        props.setTipoMensagem('success');
+        props.setMostrarMensagem(true);
       } else {
         // No modo de edição, mantenha o CNPJ original
         const fornecedorAtualizado = { ...fornecedor, cnpj: props.fornecedorParaEdicao.cnpj };
         props.setListaFornecedores([...props.listaFornecedores.filter((itemFornecedor) => itemFornecedor.cnpj !== fornecedor.cnpj), fornecedorAtualizado]);
+        props.setMensagem('Fornecedor alterado com sucesso');
+        props.setTipoMensagem('success');
+        props.setMostrarMensagem(true);
         props.setModoEdicao(false);
         props.setFornecedorParaEdicao({ cnpj: '', nome: '', email: '', telefone: '', categoria: '' });
       }

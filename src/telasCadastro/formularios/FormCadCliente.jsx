@@ -28,11 +28,17 @@ export default function FormCadCliente(props) {
             //mandar os dados para o backend
             if(!props.modoEdicao){
                 props.setListaClientes([...props.listaClientes,cliente]);
+                props.setMensagem('Cliente incluído com sucesso');
+                props.setTipoMensagem('success');
+                props.setMostrarMensagem(true);
             }
             else{
                 //alterar os dados do cliente (filtra e adiciona)
                 const clienteAtualizado = { ...cliente, cpf: props.clienteParaEdicao.cpf };
                 props.setListaClientes([...props.listaClientes.filter((itemCliente)=>itemCliente.cpf !== cliente.cpf),clienteAtualizado]);
+                props.setMensagem('Cliente alterado com sucesso');
+                props.setTipoMensagem('success');
+                props.setMostrarMensagem(true);
                 props.setModoEdicao(false);
                 props.setClienteParaEdicao(clienteVazio);                
             }

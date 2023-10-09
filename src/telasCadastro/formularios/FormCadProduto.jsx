@@ -16,9 +16,15 @@ export default function FormCadProduto(props) {
     if (form.checkValidity()) {
       if (!props.modoEdicao) {
         props.setListaProdutos([...props.listaProdutos, produto]);
+        props.setMensagem('Produto incluído com sucesso');
+        props.setTipoMensagem('success');
+        props.setMostrarMensagem(true);
       } else {
         const produtoAtualizado = { ...produto, idProduto: props.produtoParaEdicao.idProduto };
         props.setListaProdutos([...props.listaProdutos.filter((itemProduto) => itemProduto.idProduto !== produto.idProduto), produtoAtualizado]);
+        props.setMensagem('Produto alterado com sucesso');
+        props.setTipoMensagem('success');
+        props.setMostrarMensagem(true);
         props.setModoEdicao(false);
         props.setProdutoParaEdicao({ idProduto: '', nome: '', descricao: '', quantidade: 0, valor: 0, fornecedor: '', categoria: '' });
       }
